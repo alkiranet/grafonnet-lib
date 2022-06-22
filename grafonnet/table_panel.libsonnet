@@ -34,7 +34,6 @@
     min_span=null,
     height=null,
     datasource=null,
-    styles=[],
     transform=null,
     transparent=false,
     columns=[],
@@ -51,7 +50,6 @@
     datasource: datasource,
     targets: [
     ],
-    styles: styles,
     columns: columns,
     timeFrom: time_from,
     timeShift: time_shift,
@@ -60,6 +58,87 @@
     [if description != null then 'description']: description,
     [if transform != null then 'transform']: transform,
     [if transparent == true then 'transparent']: transparent,
+    addFieldConfig(
+      drawStyle='line',
+      lineInterpolation='linear',
+      barAlignment=0,
+      lineWidth=1,
+      fillOpacity=10,
+      gradientMode="none",
+      spanNulls=true,
+      showPoints="never",
+      pointSize=5,
+      stacking_mode="none",
+      stacking_group="A",
+      axisPlacement="auto",
+      axisLabel="",
+      scaleDistribution_type="linear",
+      hideFrom_tooltip=false,
+      hideFrom_viz=false,
+      hideFrom_legend=false,
+      thresholdsStyle_mode="off",
+      color_mode="palette-classic",
+      //Need to change this, make threshold steps into a loop
+      thresholds_mode="absolute",
+      thresholds_green=null,
+      thresholds_red=80,
+      mappings=[],
+      unit="short",
+      overrides=[],
+    ):: self {
+      fieldConfig: {
+        defaults: {
+          custom: {
+            drawStyle: drawStyle,
+            lineInterpolation: lineInterpolation,
+            barAlignment: barAlignment,
+            lineWidth: lineWidth,
+            fillOpacity: fillOpacity,
+            gradientMode: gradientMode,
+            spanNulls: spanNulls,
+            showPoints: showPoints,
+            pointSize: pointSize,
+            stacking: {
+              mode: stacking_mode,
+              group: stacking_group,
+            },
+            axisPlacement: axisPlacement,
+            axisLabel: axisLabel,
+            scaleDistribution: {
+              type: scaleDistribution_type,
+            },
+            hideFrom: {
+              tooltip: hideFrom_tooltip,
+              viz: hideFrom_viz,
+              legend: hideFrom_legend,
+            },
+            thresholdsStyle: {
+              mode: thresholdsStyle_mode,
+            },
+          },
+          color: {
+            mode: color_mode,
+          },
+          thresholds: {
+            mode: thresholds_mode,
+            steps: [
+              {
+                value: thresholds_green,
+                color: "green",
+              },
+              {
+                value: thresholds_red,
+                color: "red", 
+              },
+            ],
+          },
+          mappings: mappings,
+          unit: unit,
+
+        },
+        overrides: overrides,
+      },
+    },
     _nextTarget:: 0,
     addTarget(target):: self {
       local nextTarget = super._nextTarget,

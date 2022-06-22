@@ -29,5 +29,5 @@
   barGaugePanel:: import 'bar_gauge_panel.libsonnet',
   statPanel:: import 'stat_panel.libsonnet',
   transformation:: import 'transformation.libsonnet',
-  timeseries:: import 'timeseries.libsonnet',
+  timeseriesPanel:: import 'timeseries_panel.libsonnet',
 }
